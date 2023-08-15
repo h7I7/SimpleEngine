@@ -36,19 +36,22 @@ project "Editor"
 	externalincludedirs
 	{
 		"%{prj.name}/../Engine/include",
-		"vendor\\glfw\\include"
+		"vendor\\glfw\\include",
+		"vendor\\glew\\include"
 	}
 
 	libdirs
 	{
 		"Bin\\Engine\\%{cfg.buildcfg}\\%{cfg.platform}",
-		"vendor\\glfw\\BUILD\\src\\%{cfg.buildcfg}"
+		"vendor\\glfw\\build\\src\\%{cfg.buildcfg}",
+		"vendor\\glew\\lib\\Release\\x64"
 	}
 
 	links
 	{
 		"Engine.lib",
-		"glfw3.lib"
+		"glfw3.lib",
+		"glew32.lib"
 	}
 
 	filter "configurations:Debug"
@@ -92,17 +95,20 @@ project "Engine"
 
 	externalincludedirs
 	{
-		"vendor\\glfw\\include"
+		"vendor\\glfw\\include",
+		"vendor\\glew\\include"
 	}
 
 	libdirs
 	{
-		"vendor\\glfw\\BUILD\\src\\%{cfg.buildcfg}"
+		"vendor\\glfw\\build\\src\\%{cfg.buildcfg}",
+		"vendor\\glew\\lib\\Release\\x64"
 	}
 	
 	links
 	{
-		"glfw3.lib"
+		"glfw3.lib",
+		"glew32.lib"
 	}
 
 	postbuildcommands
@@ -122,13 +128,13 @@ project "Engine"
 		runtime "Release"
 
 externalproject "glfw"
-	location ("C:\\Projects\\" .. ProjectName .. "\\vendor\\glfw\\BUILD\\src")
+	location ("C:\\Projects\\" .. ProjectName .. "\\vendor\\glfw\\build\\src")
 	uuid "F70CFA3B-BFC4-3B3F-B758-519FB418430D"
 	kind "StaticLib"
 	language "C++"
 	
 externalproject "ZERO_CHECK"
-	location ("C:\\Projects\\" .. ProjectName .. "\\vendor\\glfw\\BUILD")
+	location ("C:\\Projects\\" .. ProjectName .. "\\vendor\\glfw\\build")
 	uuid "FC96CD67-3228-3471-843D-D7756AE336C1"
 	kind "None"
 	
@@ -156,7 +162,8 @@ newaction {
 		
 		-- Specific directories
         local directoriesToDelete = {
-            "vendor/glfw/BUILD"
+			"Bin",
+            "vendor/glfw/build"			
             -- Add more file paths here
         }
 		for _, directoryPath in ipairs(directoriesToDelete) do
