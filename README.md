@@ -1,4 +1,4 @@
-A template project that comes with glad, glfw, and a DLL project.
+A template project that comes with glad, glfw, and a DLL project. Not actually an engine I just had to call it something.
 
 INSTRUCTIONS
 1. Clone
