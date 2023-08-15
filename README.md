@@ -1,4 +1,5 @@
 A template project that comes with glad, glfw, and a DLL project.
+Not really an engine but I had to name it something.
 
 
 INSTRUCTIONS
