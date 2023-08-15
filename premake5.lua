@@ -115,7 +115,8 @@ project "Engine"
 	postbuildcommands
 	{
 		"{MKDIR} \"%{wks.location}Bin/Editor/%{cfg.buildcfg}/%{cfg.platform}\"",
-		"{COPYFILE} \"%{wks.location}Bin/Engine/%{cfg.buildcfg}/%{cfg.platform}/%{cfg.buildtarget.basename}%{cfg.buildtarget.extension}\" \"%{wks.location}Bin/Editor/%{cfg.buildcfg}/%{cfg.platform}\""
+		"{COPYFILE} \"%{wks.location}Bin/Engine/%{cfg.buildcfg}/%{cfg.platform}/%{cfg.buildtarget.basename}%{cfg.buildtarget.extension}\" \"%{wks.location}Bin/Editor/%{cfg.buildcfg}/%{cfg.platform}\"",
+		"rd /s /q $(SolutionDir)x64"
 	}
 
 	filter "configurations:Debug"
