@@ -107,8 +107,9 @@ project "Engine"
 	
 	links
 	{
-		"glfw3.lib",
-		"glew32.lib"
+		"opengl32.lib",
+		"glew32.lib",
+		"glfw3.lib"
 	}
 
 	postbuildcommands
