@@ -1,4 +1,6 @@
-workspace "SimpleEngine"
+local ProjectName = _ARGS[1]
+
+workspace(ProjectName)
 	architecture "x64"
 	startproject "Editor"
 	configurations { "Debug", "Release" }
@@ -120,12 +122,49 @@ project "Engine"
 		runtime "Release"
 
 externalproject "glfw"
-	location "C:\\Projects\\SimpleEngine\\vendor\\glfw\\BUILD\\src"
+	location ("C:\\Projects\\" .. ProjectName .. "\\vendor\\glfw\\BUILD\\src")
 	uuid "F70CFA3B-BFC4-3B3F-B758-519FB418430D"
 	kind "StaticLib"
 	language "C++"
 	
 externalproject "ZERO_CHECK"
-	location "C:\\Projects\\SimpleEngine\\vendor\\glfw\\BUILD"
+	location ("C:\\Projects\\" .. ProjectName .. "\\vendor\\glfw\\BUILD")
 	uuid "FC96CD67-3228-3471-843D-D7756AE336C1"
 	kind "None"
+	
+newaction {
+	trigger = "clean",
+	description = "clean the software",
+	execute = function ()
+		print("Cleaning solution...")
+		
+		-- Solution files
+		for _, slnFile in ipairs(os.matchfiles("*.sln")) do
+            os.remove(slnFile)
+        end
+		
+		-- Specific files with extensions
+        local filesToDelete = {
+            "Editor/Editor.vcxproj",
+            "Engine/Engine.vcxproj",
+            "Engine/Engine.vcxproj.filters"
+            -- Add more file paths here
+        }
+		for _, filePath in ipairs(filesToDelete) do
+            os.remove(filePath)
+        end
+		
+		-- Specific directories
+        local directoriesToDelete = {
+            "vendor/glfw/BUILD"
+            -- Add more file paths here
+        }
+		for _, directoryPath in ipairs(directoriesToDelete) do
+            if os.isdir(directoryPath) then
+                os.rmdir(directoryPath)
+            end
+        end
+		
+		print("Done cleaning.")
+	end
+}
